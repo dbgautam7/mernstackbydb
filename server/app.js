@@ -1,25 +1,18 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const connect=require('./db/connect')
+const User=require('./model/userSchema')
+
 const app = express()
+
 require('dotenv').config({path:"./config.env"})
 
-const dbUrl=process.env.DB
 const PORT=process.env.PORT
 console.log(process.env.PORT)
 
 
 mongoose.set('strictQuery', true)
 
-
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log("Connection successful")
-})
-  .catch((error) => {
-    console.log(error)
-  })
 
 const middleWare = (req, res, next) => {
   console.log('Request received:', req.method, req.url);
