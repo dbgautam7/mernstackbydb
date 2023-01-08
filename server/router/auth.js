@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const connect = require('../db/connect')
 const User = require('../model/userSchema')
+const bcrypt=require("bcryptjs")
 
 router.get('/', (req, res) => {
     res.send("Server router is done")
@@ -65,26 +66,34 @@ router.post('/register', async (req, res) => {
 //for signin
 
 router.post('/signin', async (req, res) => {
-
-    const { email: email, password: password } = req.body
+    const { email, password } = req.body;
+  
     try {
-        if (!email || !password) {
-            res.status(400).json("Both email and password must be filled")
-        }
-        const userSignin = await User.findOne({ email: email })
-        console.log(userSignin)
-        if (userSignin) {
-            res.status(200).json({ message: "User signin successfully" })
-        } else {
-            res.status(406).json("Unable to signin")
-        }
+      // Check if email or password is missing
+      if (!email || !password) {
+        res.status(400).json("Both email and password must be filled");
+        return;
+      }
+  
+      // Find user with the given email
+      const user = await User.findOne({ email });
+  
+      // If no user was found, return an error
+      if (!user) {
+        res.status(406).json("Invalid email");
+      }
+  
+      // Check if the passwords match
+      const isMatch = await bcrypt.compare(password, user.password);
+  
+      if (isMatch) {
+        res.status(200).json({ message: "User signin successfully" });
+      } else {
+        res.status(406).json("Invalid password");
+      }
+    } catch (error) {
+      console.log(error);
     }
-    catch (error) {
-        console.log(error)
-    }
-
-    // console.log(req.body)
-    // res.json({message:"signin route created"})
-})
-
+  });
+  
 module.exports = router;
