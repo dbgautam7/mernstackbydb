@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -13,7 +14,7 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required:true
+    required: true
   },
   work: {
     type: String
@@ -26,15 +27,23 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: function(value) {
+      validator: function (value) {
         return value === this.password;
       },
       message: 'Passwords do not match'
     }
-  }
-},{collection:'users'});
+  },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true
+      }
+    }
+  ]
+}, { collection: 'users' });
 
-userSchema.pre('save', async function(next) { //this is middleware that is executed before save method
+userSchema.pre('save', async function (next) { //this is middleware that is executed before save method
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);
   }
@@ -44,5 +53,17 @@ userSchema.pre('save', async function(next) { //this is middleware that is execu
   next();
 });
 
-const User=mongoose.model('User', userSchema);
+// token generation
+userSchema.methods.generateAuthToken=async function(){
+  try{
+    const token =await jwt.sign({ _id: this._id }, process.env.SECRET_KEY)
+      
+      const tokens=this.tokens.concat({token:token})
+      await this.save()
+  }catch(error){
+    console.log(error)
+  }
+}
+
+const User = mongoose.model('User', userSchema);
 module.exports = User

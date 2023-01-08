@@ -21,6 +21,7 @@ app.use(require('./router/auth'))
 const middleWare = (req, res, next) => {
   console.log('Request received:', req.method, req.url);
   next();
+  setTimeout(next, 1000)
 }
 
 // app.get('/', middleWare, function (req, res) {

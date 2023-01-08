@@ -4,6 +4,9 @@ const connect = require('../db/connect')
 const User = require('../model/userSchema')
 const bcrypt=require("bcryptjs")
 
+
+require('dotenv').config({path:"./config.env"})
+
 router.get('/', (req, res) => {
     res.send("Server router is done")
 })
@@ -13,7 +16,7 @@ router.get('/', (req, res) => {
 router.post('/register', async (req, res) => {
     const { name, email, phone, work, password, confirmPassword } = req.body
 
-    if (!name || !email || !phone || !password || !confirmPassword) {
+    if (!(name && email && phone && password && confirmPassword)) {
         return res.status(400).json({ Error: "Please fill the form properly" })
     }  //work is optional here
 
@@ -76,15 +79,17 @@ router.post('/signin', async (req, res) => {
       }
   
       // Find user with the given email
-      const user = await User.findOne({ email });
+      const userLogin = await User.findOne({ email });
   
       // If no user was found, return an error
-      if (!user) {
+      if (!userLogin) {
         res.status(406).json("Invalid email");
       }
   
       // Check if the passwords match
-      const isMatch = await bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, userLogin.password);
+      const token=await userLogin.generateAuthToken()
+      console.log(token)
   
       if (isMatch) {
         res.status(200).json({ message: "User signin successfully" });
