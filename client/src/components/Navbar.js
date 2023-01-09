@@ -5,10 +5,13 @@ import { NavLink } from 'react-router-dom';
 
 export const Navbar = () => {
   return (
-    <div>
+    <div className='navbar'>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
-    <NavLink className="navbar-brand" to="#">Navbar</NavLink>
+  
+    <NavLink className="navbar-brand" to="#">
+      <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" class="me-2" height="20"
+        alt="MDB Logo" loading="lazy" /></NavLink>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>

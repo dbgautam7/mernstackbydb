@@ -9,7 +9,7 @@ app.use(express.json())
 require('dotenv').config({path:"./config.env"})
 
 const PORT=process.env.PORT
-console.log(process.env.PORT)
+console.log(PORT)
 
 
 mongoose.set('strictQuery', true)
