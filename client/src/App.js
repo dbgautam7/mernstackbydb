@@ -1,8 +1,11 @@
 import React from 'react'
+import { Navbar } from './components/Navbar'
 
 const App = () => {
   return (
-    <div>This is the first step to reactjs </div>
+    <>
+    <Navbar />
+    </>
   )
 }
 
