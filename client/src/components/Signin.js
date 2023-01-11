@@ -2,6 +2,8 @@ import React from 'react'
 import './Signin.css'
 import loginImage from '../assets/login.jpg'
 import { NavLink } from 'react-router-dom'
+import { FaSignInAlt } from "react-icons/fa";
+import { MdMarkEmailRead,MdPassword } from "react-icons/md";
 
 const Signin = () => {
   return (
@@ -11,13 +13,13 @@ const Signin = () => {
     <img src={loginImage} alt="login" className="login" />
   </div>
   <div className='let-be-in'>
-  <h1>Let Be In .......</h1><hr></hr>
+  <h1>Let Be In ...<FaSignInAlt /></h1><hr></hr>
   </div>
   <div className="container">
-    <label for="email"><b>Email</b></label>
+    <label for="email"><b>Email <MdMarkEmailRead /></b></label>
     <input type="text" placeholder="Enter Email" name="email" required />
 
-    <label for="psw"><b>Password</b></label>
+    <label for="psw"><b>Password <MdPassword /></b></label>
     <input type="password" placeholder="Enter Password" name="psw" required />
 
     <button type="submit">Signin</button>

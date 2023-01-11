@@ -5,7 +5,10 @@ import About from './components/About'
 import Contact from './components/Contact'
 import Register from './components/Register'
 import Signin from './components/Signin'
-import {BrowserRouter,Router,Routes,Route,Link} from 'react-router-dom';
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import ErrorPage from './components/ErrorPage'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const App = () => {
   return (
     <>
@@ -17,7 +20,7 @@ const App = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/register" element={<Register />} />
       <Route path="/signin" element={<Signin />} />
-     
+      <Route path='*' element={<ErrorPage />} />
     </Routes>
     </BrowserRouter>
     </>

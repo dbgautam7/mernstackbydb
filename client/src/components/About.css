@@ -1,0 +1,68 @@
+.about-section {
+    display: flex; /* display flex container */
+    align-items: center; /* center align items vertically */
+    justify-content: space-between;
+}
+
+.image-section {
+    width: 20%; /* set width for image section */
+}
+
+.profile-picture {
+    width: 100%; /* set width of image to fill its container */
+    height: auto; /* set height to automatically adjust based on image aspect ratio */
+    border-radius: 8px; /* add border-radius to create rounded edges */
+}
+
+.text-section {
+    width: 80%; /* set width for text section */
+    padding: 0 20px; /* add some padding to separate text from the image */
+}
+
+.text-section h2 {
+    margin-bottom: 10px; /* add some margin between title and paragraph */
+}
+
+.social-link {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.social-link h3 {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.social-link a {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin-right: 20px;
+    color: rgb(14, 129, 236);
+    padding: 10px;
+    border: 2px solid rgb(7, 211, 247);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.social-link a:hover {
+    color: rgb(7, 11, 241);
+    background-color: rgb(216, 238, 16);
+}
+
+
+.social-link a:last-of-type {
+    margin-right: 0;
+}
+
+.social-link svg {
+    margin-left: 5px;
+    font-size: 1.5em;
+}
+
